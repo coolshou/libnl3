@@ -13,9 +13,22 @@ def _class_factory(base):
     Returns:
     New class definition.
     """
+
+    # Fixes error on python3.6 and up:
+    #
+    # TypeError: __class__ set to
+    #    <class 'libnl.misc._class_factory.<locals>.ClsPyPy'>
+    #   defining 'ClsPyPy' as
+    #    <class 'libnl.misc._class_factory.<locals>.ClsPyPy'>
+    #
+    # Tis comes from the PEP-487 implementation
+    #    ("PEP-487 -- Simpler customisation of class creation")
+    # modifying the class construction
+    base._super = super
+
     class ClsPyPy(base):
         def __repr__(self):
-            return repr(base(super(ClsPyPy, self).value))
+            return repr(base(base._super(ClsPyPy, self).value))
 
         @classmethod
         def from_buffer(cls, ba):
@@ -31,10 +44,10 @@ def _class_factory(base):
 
     class ClsPy26(base):
         def __repr__(self):
-            return repr(base(super(ClsPy26, self).value))
+            return repr(base(base._super(ClsPy26, self).value))
 
         def __iter__(self):
-            return iter(struct.pack(getattr(super(ClsPy26, self), '_type_'), super(ClsPy26, self).value))
+            return iter(struct.pack(getattr(base._super(ClsPy26, self), '_type_'), base._super(ClsPy26, self).value))
 
     try:
         base.from_buffer(bytearray(base()))
