@@ -573,7 +573,12 @@ def get_ie(instance, key, data):
         if data:
             return {'<invalid: {0} byte(s)>'.format(len(data)): ' '.join(format(x, '02x') for x in data)}
         return {'<invalid: no data>': data}
-    return {instance.name: instance.print_(key, data)}
+    # Don't silently fail if ie fails to print
+    try:
+        ie_printed = instance.print_(key, data)
+    except:
+        ie_printed = []
+    return {instance.name: ie_printed}
 
 
 ieprinters = {  # http://git.kernel.org/cgit/linux/kernel/git/jberg/iw.git/tree/scan.c?id=v3.17#n1013
