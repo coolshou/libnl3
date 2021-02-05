@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Setup script for the project."""
 
 import codecs
@@ -48,13 +48,11 @@ def _safe_read(path, length):
 
 
 ALL_DATA = dict(
-    author_email='coolshou2060@gmail.com',
-    classifiers=CLASSIFIERS,
-    description=DESCRIPTION,
+    #classifiers=CLASSIFIERS,
+    #description=DESCRIPTION,
     install_requires=REQUIRES_INSTALL,
     keywords=KEYWORDS,
     long_description=_safe_read('README.rst', 15000),
-    name=NAME,
     requires=REQUIRES_INSTALL,
     tests_require=REQUIRES_TEST,
     url='https://github.com/coolshou/{0}'.format(NAME),
