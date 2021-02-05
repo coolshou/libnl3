@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Show all Netlink-compatible network interfaces on the host.
 
 This is a pure-Python port of the C program available here:
