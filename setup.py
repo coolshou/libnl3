@@ -19,6 +19,7 @@ CLASSIFIERS = (
     'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3.3',
     'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: Implementation :: PyPy',
     'Topic :: Software Development :: Libraries',
     'Topic :: System :: Networking',
@@ -47,7 +48,7 @@ def _safe_read(path, length):
 
 
 ALL_DATA = dict(
-    author_email='robpol86@gmail.com',
+    author_email='coolshou2060@gmail.com',
     classifiers=CLASSIFIERS,
     description=DESCRIPTION,
     install_requires=REQUIRES_INSTALL,
@@ -56,7 +57,7 @@ ALL_DATA = dict(
     name=NAME,
     requires=REQUIRES_INSTALL,
     tests_require=REQUIRES_TEST,
-    url='https://github.com/Robpol86/{0}'.format(NAME),
+    url='https://github.com/coolshou/{0}'.format(NAME),
     zip_safe=True,
 )
 

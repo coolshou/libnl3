@@ -99,13 +99,20 @@ Changelog
 
 This project adheres to `Semantic Versioning <http://semver.org/>`_.
 
+0.3.0 - 2021-02-05
+------------------
+
+    * Fix python 3.6 error
+    * Fix continue dump when no NL_CB_DUMP_INTR
+
 0.2.0 - 2015-03-26
 ------------------
 
 Added
+
     * Python2.6, PyPy, and PyPy3 support.
 
 0.1.1 - 2015-03-15
 ------------------
 
-* Initial release.
+    * Initial release.
