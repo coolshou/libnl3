@@ -103,6 +103,18 @@ void mac_addr_n2a(char *mac_addr, unsigned char *arg) {
     }
 }
 
+static uint32_t nl80211_xbm_to_percent(int32_t xbm, int32_t divisor) {
+#define NOISE_FLOOR_DBM -90
+#define SIGNAL_MAX_DBM -20
+
+    xbm /= divisor;
+    if (xbm < NOISE_FLOOR_DBM)
+        xbm = NOISE_FLOOR_DBM;
+    if (xbm > SIGNAL_MAX_DBM)
+        xbm = SIGNAL_MAX_DBM;
+
+    return 100 - 70 * (((float)SIGNAL_MAX_DBM - (float)xbm) / ((float)SIGNAL_MAX_DBM - (float)NOISE_FLOOR_DBM));
+}
 
 void print_ssid(unsigned char *ie, int ielen) {
     uint8_t len;
@@ -186,6 +198,8 @@ static int callback_dump(struct nl_msg *msg, void *arg) {
     mac_addr_n2a(mac_addr, nla_data(bss[NL80211_BSS_BSSID]));
     printf("%s, ", mac_addr);
     printf("%d MHz, ", nla_get_u32(bss[NL80211_BSS_FREQUENCY]));
+    printf("%d, ", (int)nla_get_u32(bss[NL80211_BSS_SIGNAL_MBM])/100);
+    printf("%d, ", nl80211_xbm_to_percent(nla_get_u32(bss[NL80211_BSS_SIGNAL_MBM]), 100));
     print_ssid(nla_data(bss[NL80211_BSS_INFORMATION_ELEMENTS]), nla_len(bss[NL80211_BSS_INFORMATION_ELEMENTS]));
     printf("\n");
 
