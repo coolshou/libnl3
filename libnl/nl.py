@@ -468,7 +468,8 @@ def recvmsgs(sk, cb):
                 multipart = 1
 
             if hdr.nlmsg_flags & NLM_F_DUMP_INTR:
-                if cb.cb_set[NL_CB_DUMP_INTR]:
+                #if cb.cb_set[NL_CB_DUMP_INTR]:
+                if cb.cb_set.get(NL_CB_DUMP_INTR):
                     err = nl_cb_call(cb, NL_CB_DUMP_INTR, msg)  # NL_CB_CALL(cb, NL_CB_DUMP_INTR, msg)
                     if err == NL_OK:
                         pass
@@ -479,10 +480,10 @@ def recvmsgs(sk, cb):
                         return -NLE_DUMP_INTR if interrupted else nrecv
                     else:
                         return -NLE_DUMP_INTR if interrupted else (err or nrecv)
-                else:
+                #else:
                     # We have to continue reading to clear all messages until a NLMSG_DONE is received and report the
                     # inconsistency.
-                    interrupted = 1
+                #    interrupted = 1
 
             if hdr.nlmsg_flags & NLM_F_ACK:
                 # Other side wishes to see an ack for this message.
