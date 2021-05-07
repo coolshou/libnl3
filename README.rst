@@ -7,11 +7,11 @@ protocol based Linux kernel interfaces. This library is API-equivalent to the or
 relatively easy to convert C programs into pure Python without having to call external binaries.
 
 As Netlink is a Linux-specific protocol, this library will only work on Linux hosts. All communication is done using
-sockets between the Python process and the Linux kernel. The main driver for porting libnl was to use
+sockets between the Python process and the Linux kernel. The main driver for porting libnl3 was to use
 `nl80211 <https://wireless.wiki.kernel.org/en/developers/documentation/nl80211>`_ in Python to scan for wireless access
 points natively, without having to run an external program and parse its output.
 
-* Python 2.6, 2.7, PyPy, PyPy3, 3.3, and 3.4 supported on Linux.
+* Python PyPy3, 3.7, and 3.8 supported on Linux.
 
 .. image:: https://img.shields.io/wercker/ci/54f908261d0e8d4b221bfc9d.svg?style=flat-square&label=Wercker%20CI
    :target: https://app.wercker.com/#applications/54f908261d0e8d4b221bfc9d
@@ -52,15 +52,15 @@ A simple Python program that merely lists network adapters on the host:
     import ctypes
     import socket
 
-    from libnl.error import errmsg
-    from libnl.handlers import NL_CB_CUSTOM, NL_CB_VALID, NL_OK
-    from libnl.linux_private.if_link import IFLA_IFNAME, IFLA_RTA
-    from libnl.linux_private.netlink import NETLINK_ROUTE, NLMSG_LENGTH, NLM_F_DUMP, NLM_F_REQUEST
-    from libnl.linux_private.rtnetlink import RTA_DATA, RTA_NEXT, RTA_OK, RTM_GETLINK, ifinfomsg, rtgenmsg
-    from libnl.misc import get_string
-    from libnl.msg import nlmsg_data, nlmsg_hdr
-    from libnl.nl import nl_connect, nl_recvmsgs_default, nl_send_simple
-    from libnl.socket_ import nl_socket_alloc, nl_socket_modify_cb
+    from libnl3.error import errmsg
+    from libnl3.handlers import NL_CB_CUSTOM, NL_CB_VALID, NL_OK
+    from libnl3.linux_private.if_link import IFLA_IFNAME, IFLA_RTA
+    from libnl3.linux_private.netlink import NETLINK_ROUTE, NLMSG_LENGTH, NLM_F_DUMP, NLM_F_REQUEST
+    from libnl3.linux_private.rtnetlink import RTA_DATA, RTA_NEXT, RTA_OK, RTM_GETLINK, ifinfomsg, rtgenmsg
+    from libnl3.misc import get_string
+    from libnl3.msg import nlmsg_data, nlmsg_hdr
+    from libnl3.nl import nl_connect, nl_recvmsgs_default, nl_send_simple
+    from libnl3.socket_ import nl_socket_alloc, nl_socket_modify_cb
 
 
     def callback(msg, _):
@@ -90,14 +90,28 @@ A simple Python program that merely lists network adapters on the host:
 
 Here are some more examples with their C equivalents in order from "easy" to "hard":
 
-* `example_list_network_interfaces.py <https://github.com/Robpol86/libnl/blob/master/example_list_network_interfaces.py>`_ (`list_network_interfaces.c <https://github.com/Robpol86/libnl/blob/master/example_c/list_network_interfaces.c>`_)
-* `example_show_wifi_interface.py <https://github.com/Robpol86/libnl/blob/master/example_show_wifi_interface.py>`_ (`show_wifi_interface.c <https://github.com/Robpol86/libnl/blob/master/example_c/show_wifi_interface.c>`_)
-* `example_scan_access_points.py <https://github.com/Robpol86/libnl/blob/master/example_scan_access_points.py>`_ (`scan_access_points.c <https://github.com/Robpol86/libnl/blob/master/example_c/scan_access_points.c>`_)
+* `example_list_network_interfaces.py <https://github.com/coolshou/libnl3/blob/master/example_list_network_interfaces.py>`_ (`list_network_interfaces.c <https://github.com/Robpol86/libnl/blob/master/example_c/list_network_interfaces.c>`_)
+* `example_show_wifi_interface.py <https://github.com/coolshou/libnl3/blob/master/example_show_wifi_interface.py>`_ (`show_wifi_interface.c <https://github.com/Robpol86/libnl/blob/master/example_c/show_wifi_interface.c>`_)
+* `example_scan_access_points.py <https://github.com/coolshou/libnl3/blob/master/example_scan_access_points.py>`_ (`scan_access_points.c <https://github.com/Robpol86/libnl/blob/master/example_c/scan_access_points.c>`_)
+
+BUILD whl package
+=========
+
+#    whl file will place in dist/ folder
+    python3 -m pip install --user --upgrade setuptools wheel
+    python3 setup.py sdist bdist_wheel
+    python3 -m build
 
 Changelog
 =========
 
+
 This project adheres to `Semantic Versioning <http://semver.org/>`_.
+
+0.3.1 - 2021-02-05
+------------------
+
+    * Fix python 3.8 error
 
 0.3.0 - 2021-02-05
 ------------------

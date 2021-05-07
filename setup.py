@@ -15,11 +15,8 @@ CLASSIFIERS = (
     'Intended Audience :: Developers',
     'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
     'Operating System :: POSIX :: Linux',
-    'Programming Language :: Python :: 2.6',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.3',
-    'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: Implementation :: PyPy',
     'Topic :: Software Development :: Libraries',
     'Topic :: System :: Networking',
@@ -27,8 +24,8 @@ CLASSIFIERS = (
 )
 DESCRIPTION = 'Pure Python port of the Netlink protocol library suite.'
 HERE = os.path.abspath(os.path.dirname(__file__))
-KEYWORDS = 'netlink libnl libnl-genl nl80211'
-NAME = 'libnl'
+KEYWORDS = 'netlink libnl3 libnl3-genl nl80211'
+NAME = 'libnl3'
 NAME_FILE = NAME
 PACKAGE = True
 REQUIRES_INSTALL = []
@@ -50,6 +47,9 @@ def _safe_read(path, length):
 ALL_DATA = dict(
     #classifiers=CLASSIFIERS,
     #description=DESCRIPTION,
+    author="coolshou",
+    version="0.3.1",
+    license="LGPLv2+",
     install_requires=REQUIRES_INSTALL,
     keywords=KEYWORDS,
     long_description=_safe_read('README.rst', 15000),
