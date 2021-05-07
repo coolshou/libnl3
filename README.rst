@@ -51,7 +51,7 @@ A simple Python program that merely lists network adapters on the host:
 
     import ctypes
     import socket
-
+    
     from libnl3.error import errmsg
     from libnl3.handlers import NL_CB_CUSTOM, NL_CB_VALID, NL_OK
     from libnl3.linux_private.if_link import IFLA_IFNAME, IFLA_RTA
@@ -98,9 +98,9 @@ BUILD whl package
 =========
 
 #    whl file will place in dist/ folder
-    python3 -m pip install --user --upgrade setuptools wheel
-    python3 setup.py sdist bdist_wheel
-    python3 -m build
+​    `python3 -m pip install --user --upgrade setuptools wheel`
+​	`python3 setup.py sdist bdist_wheel`
+​    `python3 -m build`
 
 Changelog
 =========
