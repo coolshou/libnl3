@@ -11,12 +11,12 @@ of the License.
 
 import logging
 
-from libnl.errno_ import NLE_INVAL, NLE_NOMEM, NLE_RANGE
-from libnl.linux_private.netlink import NLA_ALIGN, NLA_F_NESTED, NLA_HDRLEN, NLA_TYPE_MASK, nlattr, NLMSG_ALIGN
-from libnl.misc import (bytearray_ptr, c_int, c_uint16, c_uint32, c_uint64, c_uint8, c_ulong, get_string, sizeof,
+from libnl3.errno_ import NLE_INVAL, NLE_NOMEM, NLE_RANGE
+from libnl3.linux_private.netlink import NLA_ALIGN, NLA_F_NESTED, NLA_HDRLEN, NLA_TYPE_MASK, nlattr, NLMSG_ALIGN
+from libnl3.misc import (bytearray_ptr, c_int, c_uint16, c_uint32, c_uint64, c_uint8, c_ulong, get_string, sizeof,
                         SIZEOF_U16, SIZEOF_U32, SIZEOF_U64, SIZEOF_U8)
-from libnl.msg_ import nlmsg_data, nlmsg_datalen, nlmsg_tail
-from libnl.netlink_private.netlink import BUG
+from libnl3.msg_ import nlmsg_data, nlmsg_datalen, nlmsg_tail
+from libnl3.netlink_private.netlink import BUG
 
 _LOGGER = logging.getLogger(__name__)
 NLA_UNSPEC = 0  # Unspecified type, binary data chunk.

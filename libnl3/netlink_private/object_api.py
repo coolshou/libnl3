@@ -8,7 +8,7 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.list_ import nl_list_head
+from libnl3.list_ import nl_list_head
 
 
 class NLHDR_COMMON(object):

@@ -10,9 +10,9 @@ of the License.
 
 import socket
 
-from libnl.linux_private.netlink import sockaddr_nl
-from libnl.list_ import nl_list_head
-from libnl.netlink_private.object_api import NLHDR_COMMON
+from libnl3.linux_private.netlink import sockaddr_nl
+from libnl3.list_ import nl_list_head
+from libnl3.netlink_private.object_api import NLHDR_COMMON
 
 NL_SOCK_BUFSIZE_SET = 1 << 0
 NL_SOCK_PASSCRED = 1 << 1

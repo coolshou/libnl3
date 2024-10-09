@@ -8,9 +8,9 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.linux_private.netlink import NLMSG_ALIGN
-from libnl.linux_private.rtnetlink import ifinfomsg, rtattr
-from libnl.misc import bytearray_ptr
+from libnl3.linux_private.netlink import NLMSG_ALIGN
+from libnl3.linux_private.rtnetlink import ifinfomsg, rtattr
+from libnl3.misc import bytearray_ptr
 
 
 IFLA_UNSPEC = 0

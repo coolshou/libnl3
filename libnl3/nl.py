@@ -19,22 +19,22 @@ import logging
 import resource
 import socket
 
-from libnl.errno_ import (NLE_AF_NOSUPPORT, NLE_BAD_SOCK, NLE_DUMP_INTR, NLE_MSG_OVERFLOW, NLE_MSG_TRUNC,
+from libnl3.errno_ import (NLE_AF_NOSUPPORT, NLE_BAD_SOCK, NLE_DUMP_INTR, NLE_MSG_OVERFLOW, NLE_MSG_TRUNC,
                           NLE_SEQ_MISMATCH)
-from libnl.error import nl_syserr2nlerr
-from libnl.handlers import (NL_CB_ACK, nl_cb_clone, NL_CB_CUSTOM, NL_CB_DUMP_INTR, NL_CB_FINISH, NL_CB_INVALID,
+from libnl3.error import nl_syserr2nlerr
+from libnl3.handlers import (NL_CB_ACK, nl_cb_clone, NL_CB_CUSTOM, NL_CB_DUMP_INTR, NL_CB_FINISH, NL_CB_INVALID,
                             NL_CB_MSG_IN, NL_CB_MSG_OUT, NL_CB_OVERRUN, NL_CB_SEND_ACK, NL_CB_SEQ_CHECK, nl_cb_set,
                             NL_CB_SKIPPED, NL_CB_VALID, NL_OK, NL_SKIP, NL_STOP)
-from libnl.linux_private.netlink import (NLM_F_ACK, NLM_F_DUMP_INTR, NLM_F_MULTI, NLM_F_REQUEST, NLMSG_ALIGNTO,
+from libnl3.linux_private.netlink import (NLM_F_ACK, NLM_F_DUMP_INTR, NLM_F_MULTI, NLM_F_REQUEST, NLMSG_ALIGNTO,
                                          NLMSG_DONE, NLMSG_ERROR, NLMSG_NOOP, NLMSG_OVERRUN, nlmsgerr, nlmsghdr,
                                          sockaddr_nl)
-from libnl.misc import bytearray_ptr, c_int, msghdr, ucred
-from libnl.msg import (NL_AUTO_PORT, NL_AUTO_SEQ, nlmsg_alloc_simple, nlmsg_append, nlmsg_convert, nlmsg_data,
+from libnl3.misc import bytearray_ptr, c_int, msghdr, ucred
+from libnl3.msg import (NL_AUTO_PORT, NL_AUTO_SEQ, nlmsg_alloc_simple, nlmsg_append, nlmsg_convert, nlmsg_data,
                        nlmsg_get_creds, nlmsg_get_dst, nlmsg_hdr, nlmsg_next, nlmsg_ok, nlmsg_set_proto, nlmsg_set_src,
                        nlmsg_size)
-from libnl.netlink_private.netlink import nl_cb_call
-from libnl.netlink_private.types import NL_MSG_PEEK, NL_NO_AUTO_ACK, NL_SOCK_BUFSIZE_SET, NL_SOCK_PASSCRED
-from libnl.socket_ import nl_socket_get_local_port, nl_socket_set_buffer_size
+from libnl3.netlink_private.netlink import nl_cb_call
+from libnl3.netlink_private.types import NL_MSG_PEEK, NL_NO_AUTO_ACK, NL_SOCK_BUFSIZE_SET, NL_SOCK_PASSCRED
+from libnl3.socket_ import nl_socket_get_local_port, nl_socket_set_buffer_size
 
 _LOGGER = logging.getLogger(__name__)
 

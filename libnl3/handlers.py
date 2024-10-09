@@ -13,10 +13,10 @@ import copy
 import logging
 from os import strerror
 
-from libnl.errno_ import NLE_RANGE
-from libnl.error import nl_syserr2nlerr
-from libnl.msg import nl_msg_dump, nl_nlmsg_flags2str, nl_nlmsgtype2str, nlmsg_hdr
-from libnl.netlink_private.types import nl_cb
+from libnl3.errno_ import NLE_RANGE
+from libnl3.error import nl_syserr2nlerr
+from libnl3.msg import nl_msg_dump, nl_nlmsg_flags2str, nl_nlmsgtype2str, nlmsg_hdr
+from libnl3.netlink_private.types import nl_cb
 
 _LOGGER = logging.getLogger(__name__)
 

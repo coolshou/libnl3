@@ -11,8 +11,8 @@ of the License.
 import logging
 import threading
 
-from libnl.errno_ import NLE_EXIST, NLE_INVAL
-from libnl.netlink_private.cache_api import nl_cache_ops
+from libnl3.errno_ import NLE_EXIST, NLE_INVAL
+from libnl3.netlink_private.cache_api import nl_cache_ops
 
 _LOGGER = logging.getLogger(__name__)
 cache_ops = nl_cache_ops()

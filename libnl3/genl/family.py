@@ -8,12 +8,12 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.linux_private.genetlink import GENL_ID_GENERATE
-from libnl.list_ import nl_init_list_head, nl_list_add_tail, nl_list_del, nl_list_for_each_entry_safe, nl_list_head
-from libnl.netlink_private.object_api import nl_object_ops
-from libnl.netlink_private.types import genl_family, genl_family_grp, genl_family_op
-from libnl.object import nl_object_alloc
-from libnl.types import NL_DUMP_DETAILS, NL_DUMP_LINE, NL_DUMP_STATS
+from libnl3.linux_private.genetlink import GENL_ID_GENERATE
+from libnl3.list_ import nl_init_list_head, nl_list_add_tail, nl_list_del, nl_list_for_each_entry_safe, nl_list_head
+from libnl3.netlink_private.object_api import nl_object_ops
+from libnl3.netlink_private.types import genl_family, genl_family_grp, genl_family_op
+from libnl3.object import nl_object_alloc
+from libnl3.types import NL_DUMP_DETAILS, NL_DUMP_LINE, NL_DUMP_STATS
 
 FAMILY_ATTR_ID = 0x01
 FAMILY_ATTR_NAME = 0x02

@@ -8,8 +8,8 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.linux_private.netlink import NLMSG_ALIGN, NLMSG_MIN_TYPE
-from libnl.misc import bytearray_ptr, c_uint16, c_uint8, SIZEOF_U16, SIZEOF_U8, Struct
+from libnl3.linux_private.netlink import NLMSG_ALIGN, NLMSG_MIN_TYPE
+from libnl3.misc import bytearray_ptr, c_uint16, c_uint8, SIZEOF_U16, SIZEOF_U8, Struct
 
 GENL_NAMSIZ = 16  # Length of family name.
 GENL_MIN_ID = NLMSG_MIN_TYPE

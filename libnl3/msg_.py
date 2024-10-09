@@ -13,8 +13,8 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.linux_private.netlink import NLMSG_ALIGN, NLMSG_HDRLEN
-from libnl.misc import bytearray_ptr
+from libnl3.linux_private.netlink import NLMSG_ALIGN, NLMSG_HDRLEN
+from libnl3.misc import bytearray_ptr
 
 
 def nlmsg_data(nlh):

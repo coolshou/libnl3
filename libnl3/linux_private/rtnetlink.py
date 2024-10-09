@@ -8,7 +8,7 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.misc import (bytearray_ptr, c_int, c_ubyte, c_uint, c_ushort, SIZEOF_INT, SIZEOF_UBYTE, SIZEOF_UINT,
+from libnl3.misc import (bytearray_ptr, c_int, c_ubyte, c_uint, c_ushort, SIZEOF_INT, SIZEOF_UBYTE, SIZEOF_UINT,
                         SIZEOF_USHORT, Struct)
 
 RTNL_FAMILY_IPMR = 128

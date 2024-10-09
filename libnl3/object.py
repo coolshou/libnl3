@@ -10,8 +10,8 @@ of the License.
 
 import logging
 
-from libnl.list_ import nl_init_list_head
-from libnl.netlink_private.object_api import nl_object
+from libnl3.list_ import nl_init_list_head
+from libnl3.netlink_private.object_api import nl_object
 
 _LOGGER = logging.getLogger(__name__)
 

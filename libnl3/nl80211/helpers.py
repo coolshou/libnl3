@@ -2,9 +2,9 @@
 
 from datetime import timedelta
 
-import libnl.attr
-from libnl.nl80211 import iw_scan
-from libnl.nl80211 import nl80211
+import libnl3.attr
+from libnl3.nl80211 import iw_scan
+from libnl3.nl80211 import nl80211
 
 
 def _get(out_parsed, in_bss, key, parser_func):

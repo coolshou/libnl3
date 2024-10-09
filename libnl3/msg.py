@@ -16,16 +16,16 @@ import os
 import resource
 import string
 
-import libnl.linux_private.netlink
-from libnl.attr import nla_data, nla_find, nla_for_each_attr, nla_is_nested, nla_len, nla_padlen, nla_parse
-from libnl.cache_mngt import nl_cache_ops_associate_safe, nl_msgtype_lookup
-from libnl.errno_ import NLE_MSG_TOOSHORT, NLE_NOMEM
-from libnl.linux_private.genetlink import GENL_HDRLEN, genlmsghdr
-from libnl.misc import bytearray_ptr, c_int
-from libnl.msg_ import nlmsg_data, nlmsg_len
-from libnl.netlink_private.netlink import BUG
-from libnl.netlink_private.types import nl_msg, NL_MSG_CRED_PRESENT
-from libnl.utils import __type2str
+import libnl3.linux_private.netlink
+from libnl3.attr import nla_data, nla_find, nla_for_each_attr, nla_is_nested, nla_len, nla_padlen, nla_parse
+from libnl3.cache_mngt import nl_cache_ops_associate_safe, nl_msgtype_lookup
+from libnl3.errno_ import NLE_MSG_TOOSHORT, NLE_NOMEM
+from libnl3.linux_private.genetlink import GENL_HDRLEN, genlmsghdr
+from libnl3.misc import bytearray_ptr, c_int
+from libnl3.msg_ import nlmsg_data, nlmsg_len
+from libnl3.netlink_private.netlink import BUG
+from libnl3.netlink_private.types import nl_msg, NL_MSG_CRED_PRESENT
+from libnl3.utils import __type2str
 
 _LOGGER = logging.getLogger(__name__)
 default_msg_size = resource.getpagesize()
@@ -45,7 +45,7 @@ def nlmsg_size(payload):
     Returns:
     Size of Netlink message without padding (integer).
     """
-    return int(libnl.linux_private.netlink.NLMSG_HDRLEN + payload)
+    return int(libnl3.linux_private.netlink.NLMSG_HDRLEN + payload)
 
 
 nlmsg_msg_size = nlmsg_size  # Alias. https://github.com/thom311/libnl/blob/libnl3_2_25/lib/msg.c#L59
@@ -64,7 +64,7 @@ def nlmsg_total_size(payload):
     Returns:
     Size of Netlink message including padding (integer).
     """
-    return int(libnl.linux_private.netlink.NLMSG_ALIGN(nlmsg_msg_size(payload)))
+    return int(libnl3.linux_private.netlink.NLMSG_ALIGN(nlmsg_msg_size(payload)))
 
 
 def nlmsg_for_each_attr(nlh, hdrlen, rem):
@@ -96,7 +96,7 @@ def nlmsg_attrdata(nlh, hdrlen):
     First attribute (nlattr class instance with others in its payload).
     """
     data = nlmsg_data(nlh)
-    return libnl.linux_private.netlink.nlattr(bytearray_ptr(data, libnl.linux_private.netlink.NLMSG_ALIGN(hdrlen)))
+    return libnl3.linux_private.netlink.nlattr(bytearray_ptr(data, libnl3.linux_private.netlink.NLMSG_ALIGN(hdrlen)))
 
 
 def nlmsg_attrlen(nlh, hdrlen):
@@ -110,7 +110,7 @@ def nlmsg_attrlen(nlh, hdrlen):
     Returns:
     Integer.
     """
-    return max(nlmsg_len(nlh) - libnl.linux_private.netlink.NLMSG_ALIGN(hdrlen), 0)
+    return max(nlmsg_len(nlh) - libnl3.linux_private.netlink.NLMSG_ALIGN(hdrlen), 0)
 
 
 def nlmsg_valid_hdr(nlh, hdrlen):
@@ -137,7 +137,7 @@ def nlmsg_ok(nlh, remaining):
     Returns:
     Boolean.
     """
-    sizeof = libnl.linux_private.netlink.nlmsghdr.SIZEOF
+    sizeof = libnl3.linux_private.netlink.nlmsghdr.SIZEOF
     return remaining.value >= sizeof and sizeof <= nlh.nlmsg_len <= remaining.value
 
 
@@ -153,9 +153,9 @@ def nlmsg_next(nlh, remaining):
     Returns:
     The next Netlink message in the message stream and decrements remaining by the size of the current message.
     """
-    totlen = libnl.linux_private.netlink.NLMSG_ALIGN(nlh.nlmsg_len)
+    totlen = libnl3.linux_private.netlink.NLMSG_ALIGN(nlh.nlmsg_len)
     remaining.value -= totlen
-    return libnl.linux_private.netlink.nlmsghdr(bytearray_ptr(nlh.bytearray, totlen))
+    return libnl3.linux_private.netlink.nlmsghdr(bytearray_ptr(nlh.bytearray, totlen))
 
 
 def nlmsg_parse(nlh, hdrlen, tb, maxtype, policy):
@@ -205,10 +205,10 @@ def nlmsg_alloc(len_=default_msg_size):
     Returns:
     Newly allocated Netlink message (nl_msg class instance).
     """
-    len_ = max(libnl.linux_private.netlink.nlmsghdr.SIZEOF, len_)
+    len_ = max(libnl3.linux_private.netlink.nlmsghdr.SIZEOF, len_)
     nm = nl_msg()
     nm.nm_refcnt = 1
-    nm.nm_nlh = libnl.linux_private.netlink.nlmsghdr(bytearray(b'\0') * len_)
+    nm.nm_nlh = libnl3.linux_private.netlink.nlmsghdr(bytearray(b'\0') * len_)
     nm.nm_protocol = -1
     nm.nm_size = len_
     nm.nm_nlh.nlmsg_len = nlmsg_total_size(0)
@@ -255,7 +255,7 @@ def nlmsg_alloc_simple(nlmsgtype, flags):
     Returns:
     Newly allocated Netlink message (nl_msg class instance) or None.
     """
-    nlh = libnl.linux_private.netlink.nlmsghdr(nlmsg_type=nlmsgtype, nlmsg_flags=flags)
+    nlh = libnl3.linux_private.netlink.nlmsghdr(nlmsg_type=nlmsgtype, nlmsg_flags=flags)
     msg = nlmsg_inherit(nlh)
     _LOGGER.debug('msg 0x%x: Allocated new simple message', id(msg))
     return msg
@@ -360,7 +360,7 @@ def nlmsg_put(n, pid, seq, type_, payload, flags):
     Returns:
     nlmsghdr class instance or None.
     """
-    if n.nm_nlh.nlmsg_len < libnl.linux_private.netlink.NLMSG_HDRLEN:
+    if n.nm_nlh.nlmsg_len < libnl3.linux_private.netlink.NLMSG_HDRLEN:
         raise BUG
 
     nlh = n.nm_nlh
@@ -371,7 +371,7 @@ def nlmsg_put(n, pid, seq, type_, payload, flags):
 
     _LOGGER.debug('msg 0x%x: Added netlink header type=%d, flags=%d, pid=%d, seq=%d', id(n), type_, flags, pid, seq)
 
-    if payload > 0 and nlmsg_reserve(n, payload, libnl.linux_private.netlink.NLMSG_ALIGNTO) is None:
+    if payload > 0 and nlmsg_reserve(n, payload, libnl3.linux_private.netlink.NLMSG_ALIGNTO) is None:
         return None
 
     return nlh
@@ -421,10 +421,10 @@ def nlmsg_get_creds(msg):
 
 
 nl_msgtypes = {
-    libnl.linux_private.netlink.NLMSG_NOOP: 'NOOP',
-    libnl.linux_private.netlink.NLMSG_ERROR: 'ERROR',
-    libnl.linux_private.netlink.NLMSG_DONE: 'DONE',
-    libnl.linux_private.netlink.NLMSG_OVERRUN: 'OVERRUN',
+    libnl3.linux_private.netlink.NLMSG_NOOP: 'NOOP',
+    libnl3.linux_private.netlink.NLMSG_ERROR: 'ERROR',
+    libnl3.linux_private.netlink.NLMSG_DONE: 'DONE',
+    libnl3.linux_private.netlink.NLMSG_OVERRUN: 'OVERRUN',
 }
 
 
@@ -459,17 +459,17 @@ def nl_nlmsg_flags2str(flags, buf, _=None):
     """
     del buf[:]
     all_flags = (
-        ('REQUEST', libnl.linux_private.netlink.NLM_F_REQUEST),
-        ('MULTI', libnl.linux_private.netlink.NLM_F_MULTI),
-        ('ACK', libnl.linux_private.netlink.NLM_F_ACK),
-        ('ECHO', libnl.linux_private.netlink.NLM_F_ECHO),
-        ('ROOT', libnl.linux_private.netlink.NLM_F_ROOT),
-        ('MATCH', libnl.linux_private.netlink.NLM_F_MATCH),
-        ('ATOMIC', libnl.linux_private.netlink.NLM_F_ATOMIC),
-        ('REPLACE', libnl.linux_private.netlink.NLM_F_REPLACE),
-        ('EXCL', libnl.linux_private.netlink.NLM_F_EXCL),
-        ('CREATE', libnl.linux_private.netlink.NLM_F_CREATE),
-        ('APPEND', libnl.linux_private.netlink.NLM_F_APPEND),
+        ('REQUEST', libnl3.linux_private.netlink.NLM_F_REQUEST),
+        ('MULTI', libnl3.linux_private.netlink.NLM_F_MULTI),
+        ('ACK', libnl3.linux_private.netlink.NLM_F_ACK),
+        ('ECHO', libnl3.linux_private.netlink.NLM_F_ECHO),
+        ('ROOT', libnl3.linux_private.netlink.NLM_F_ROOT),
+        ('MATCH', libnl3.linux_private.netlink.NLM_F_MATCH),
+        ('ATOMIC', libnl3.linux_private.netlink.NLM_F_ATOMIC),
+        ('REPLACE', libnl3.linux_private.netlink.NLM_F_REPLACE),
+        ('EXCL', libnl3.linux_private.netlink.NLM_F_EXCL),
+        ('CREATE', libnl3.linux_private.netlink.NLM_F_CREATE),
+        ('APPEND', libnl3.linux_private.netlink.NLM_F_APPEND),
     )
     print_flags = []
     for k, v in all_flags:
@@ -643,7 +643,7 @@ def dump_error_msg(msg, ofd=_LOGGER.debug):
     ofd -- function to call with arguments similar to `logging.debug`.
     """
     hdr = nlmsg_hdr(msg)
-    err = libnl.linux_private.netlink.nlmsgerr(nlmsg_data(hdr))
+    err = libnl3.linux_private.netlink.nlmsgerr(nlmsg_data(hdr))
 
     ofd('  [ERRORMSG] %d octets', err.SIZEOF)
 
@@ -669,7 +669,7 @@ def print_msg(msg, ofd, hdr):
     if ops:
         attrlen = nlmsg_attrlen(hdr, ops.co_hdrsize)
         payloadlen.value -= attrlen
-    if msg.nm_protocol == libnl.linux_private.netlink.NETLINK_GENERIC:
+    if msg.nm_protocol == libnl3.linux_private.netlink.NETLINK_GENERIC:
         data = print_genl_msg(msg, ofd, hdr, ops, payloadlen)
     if payloadlen.value:
         ofd('  [PAYLOAD] %d octets', payloadlen.value)
@@ -698,7 +698,7 @@ def nl_msg_dump(msg, ofd=_LOGGER.debug):
     ofd('  [NETLINK HEADER] %d octets', hdr.SIZEOF)
     print_hdr(ofd, msg)
 
-    if hdr.nlmsg_type == libnl.linux_private.netlink.NLMSG_ERROR:
+    if hdr.nlmsg_type == libnl3.linux_private.netlink.NLMSG_ERROR:
         dump_error_msg(msg, ofd)
     elif nlmsg_len(hdr) > 0:
         print_msg(msg, ofd, hdr)

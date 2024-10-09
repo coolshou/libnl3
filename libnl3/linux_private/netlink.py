@@ -8,7 +8,7 @@ License as published by the Free Software Foundation version 2.1
 of the License.
 """
 
-from libnl.misc import (bytearray_ptr, c_int, c_uint, c_uint16, c_uint32, c_ushort, SIZEOF_INT, SIZEOF_U16, SIZEOF_U32,
+from libnl3.misc import (bytearray_ptr, c_int, c_uint, c_uint16, c_uint32, c_ushort, SIZEOF_INT, SIZEOF_U16, SIZEOF_U32,
                         SIZEOF_UINT, SIZEOF_USHORT, Struct)
 
 NETLINK_ROUTE = 0  # Routing/device hook.

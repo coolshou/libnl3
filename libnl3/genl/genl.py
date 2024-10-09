@@ -10,13 +10,13 @@ of the License.
 
 import logging
 
-from libnl.attr import nla_parse
-from libnl.errno_ import NLE_MSG_TOOSHORT
-from libnl.linux_private.genetlink import GENL_HDRLEN, genlmsghdr
-from libnl.linux_private.netlink import NETLINK_GENERIC, nlattr, NLMSG_ALIGN, NLMSG_HDRLEN, nlmsghdr
-from libnl.misc import bytearray_ptr
-from libnl.msg import nlmsg_data, nlmsg_put, nlmsg_valid_hdr
-from libnl.nl import nl_connect, nl_send_simple
+from libnl3.attr import nla_parse
+from libnl3.errno_ import NLE_MSG_TOOSHORT
+from libnl3.linux_private.genetlink import GENL_HDRLEN, genlmsghdr
+from libnl3.linux_private.netlink import NETLINK_GENERIC, nlattr, NLMSG_ALIGN, NLMSG_HDRLEN, nlmsghdr
+from libnl3.misc import bytearray_ptr
+from libnl3.msg import nlmsg_data, nlmsg_put, nlmsg_valid_hdr
+from libnl3.nl import nl_connect, nl_send_simple
 
 _LOGGER = logging.getLogger(__name__)
 
