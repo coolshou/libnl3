@@ -1,0 +1,40 @@
+Source: libnl3
+Section: python
+Priority: optional
+Maintainer: coolshou <coolshou2060@gmail.com>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
+ dh-sequence-python3,
+ python3-setuptools,
+ python3-all,
+#Testsuite: autopkgtest-pkg-python
+Standards-Version: 4.6.2
+Homepage: https://github.com/coolshou/libnl3.git
+#Vcs-Browser: https://salsa.debian.org/debian/python3-libnl3
+#Vcs-Git: https://salsa.debian.org/debian/python3-libnl3.git
+
+Package: python3-libnl3
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${python3:Depends},
+ ${misc:Depends},
+Suggests:
+ python3-libnl3-doc,
+Description: a collection of libraries providing APIs to the Netlink protocol based Linux kernel interfaces
+ a collection of libraries providing APIs to the Netlink protocol based Linux kernel interfaces
+ .
+ This package installs the library for Python 3.
+
+Package: python3-libnl3-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${sphinxdoc:Depends},
+ ${misc:Depends},
+Description: a collection of libraries providing APIs to the Netlink protocol based Linux kernel interfaces (common documentation)
+ a collection of libraries providing APIs to the Netlink protocol based Linux kernel interfaces
+ .
+ This is the common documentation package.
